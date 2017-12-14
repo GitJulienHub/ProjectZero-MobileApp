@@ -1,0 +1,93 @@
+<!--
+  Generated template for the RegisterPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>register</ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <form [formGroup]="signupForm" (ngSubmit)="onSignup()">
+        <ion-list>
+            <div class="form-group">
+                <ion-item>
+                    <ion-label for="username" stacked>Username</ion-label>
+                    <ion-input
+                            [ngClass]="{ deny: !signupForm.get('username').valid && signupForm.get('username').touched }"
+                            type="text"
+                            class="form-control"
+                            id="username"
+                            name="username"
+                            placeholder="Benutzername"
+                            formControlName="username" ngModel></ion-input>
+                </ion-item>
+                <span *ngIf="!signupForm.get('username').valid && signupForm.get('username').touched">
+          <span *ngIf="signupForm.get('username').errors['minlength']">Benutzername muss mindenstens 3 Zeichen lang sein!</span>
+          <span *ngIf="signupForm.get('username').errors['maxlength']">Benutzername darf maximal 30 Zeichen lang sein!</span>
+        </span>
+            </div>
+
+            <div class="form-group">
+                <ion-item>
+                    <ion-label for="email" stacked>E-Mail</ion-label>
+                    <ion-input [ngClass]="{ deny: !signupForm.get('email').valid && signupForm.get('email').touched }"
+                               type="email"
+                               class="form-control"
+                               id="email"
+                               placeholder="E-Mail"
+                               name="email"
+                               formControlName="email" ngModel></ion-input>
+                </ion-item>
+                <span *ngIf="!signupForm.get('email').valid && signupForm.get('email').touched">
+          Bitte geben Sie eine korrekte E-Mail an!
+        </span>
+            </div>
+
+            <div class="form-group">
+                <ion-item>
+                    <ion-label for="password" stacked>Password</ion-label>
+                    <ion-input
+                            [ngClass]="{ deny: !signupForm.get('passwords.password').valid && signupForm.get('passwords.password').touched }"
+                            type="password"
+                            class="form-control"
+                            id="password"
+                            name="password"
+                            placeholder="Passwort"
+                            formControlName="password" ngModel></ion-input>
+                </ion-item>
+                <span *ngIf="!signupForm.get('passwords.password').valid && signupForm.get('passwords.password').touched">
+          <span *ngIf="signupForm.get('passwords.password').errors['minlength']">Passwort muss mindenstens 8 Zeichen lang sein!</span>
+        </span>
+            </div>
+
+            <div class="form-group">
+                <ion-item>
+                    <ion-label for="repeat" stacked>Password</ion-label>
+                    <ion-input
+                            [ngClass]="{ deny: !signupForm.get('passwords').valid && signupForm.get('passwords.repeat').touched }"
+                            type="password"
+                            class="form-control"
+                            id="repeat"
+                            name="repeat"
+                            placeholder="Passwort"
+                            formControlName="repeat"
+                            ngModel></ion-input>
+                </ion-item>
+                <span *ngIf="(!signupForm.get('passwords').valid || !signupForm.get('passwords.repeat').valid) && signupForm.get('passwords.repeat').touched">
+                <span *ngIf="signupForm.get('passwords').errors != null">Passwörter stimmen nicht überein!</span>
+                </span>
+             </div>
+        </ion-list>
+    </form>
+
+    <div padding>
+        <button block ion-button type="submit">Register</button>
+    </div>
+</ion-content>
