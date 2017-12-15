@@ -1,3 +1,4 @@
+
 import {Component, OnInit, ViewChild} from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AuthService } from '../auth.service';
@@ -38,7 +39,7 @@ export class LoginPage implements OnInit{
     console.log('Would sign in with ', this.user.value, this.password.value);
     const email = this.user.value;
     const password =this.password.value;
-    this.authService.signinUser(email, password);
+    this.authService.signinUser("w@w.de","12345678");//(email, password);
 
 
     if(this.authService.isAuthenticated() == true){
@@ -46,6 +47,7 @@ export class LoginPage implements OnInit{
     }
 
     console.log(this.authService.isAuthenticated());
+    console.log(this.authService.getToken());
   }
 
 }

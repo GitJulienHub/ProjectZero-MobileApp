@@ -25,16 +25,14 @@ export class WillkommenPage {
   }
 
   friendlist(){
-    this.navCtrl.push(FriendlistPage)
+      const authService = this.navParams.get('auth');
+    this.navCtrl.push(FriendlistPage,{'token' : authService.getToken()});
   }
 
   logout(){
-
     const authService = this.navParams.get('auth');
     authService.signOut();
     this.navCtrl.popToRoot();
-
-  
 
   }
 

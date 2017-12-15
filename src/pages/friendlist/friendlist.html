@@ -7,13 +7,13 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>friendlist</ion-title>
+    <ion-title>Freundesliste</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content padding >
   <div padding>
     <ion-segment [(ngModel)]="friendlist">
       <ion-segment-button value="Friends">
@@ -28,19 +28,19 @@
   <div [ngSwitch]="friendlist">
 
     <ion-list *ngSwitchCase="'Friends'">
-      <ion-item>
-        <ion-thumbnail item-start>
-          <img src="../../img/somepic.jpg">
-        </ion-thumbnail>
-        <h2>GitJulienHub</h2>
-      </ion-item>
-      ...
+        <ion-item *ngFor="let friend of friends">
+          <ion-thumbnail item-start>
+          <img src="./../../img/somepic.jpg"/>
+          </ion-thumbnail>
+          <h2>{{friend}}</h2>
+        </ion-item>
     </ion-list>
+
 
     <ion-list *ngSwitchCase="'Groups'">
       <ion-item>
         <ion-thumbnail item-start>
-          <img src="../../img/group.jpg">
+          <img src="./../../img/group.jpg"/>
         </ion-thumbnail>
         <h2>Gruppe 1</h2>
       </ion-item>
@@ -49,3 +49,15 @@
 
   </div>
 </ion-content>
+
+
+
+
+
+<ion-footer>
+  <ion-toolbar>
+    <div text-center>
+      <button ion-button color="secondary" (click)="addFriendPrompt()" round>Freund hinzufügen</button>
+    </div>
+  </ion-toolbar>
+</ion-footer>
