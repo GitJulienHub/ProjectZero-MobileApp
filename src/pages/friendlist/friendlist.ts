@@ -21,6 +21,7 @@ export class FriendlistPage implements OnInit{
   error: string = null;
   token: any;
   hatgeklappt = new Subject<any>();
+
   id: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public http: HttpClient, private toastCtrl: ToastController) {
@@ -75,8 +76,33 @@ export class FriendlistPage implements OnInit{
 
   }
 
+  deleteFriend(id: string){
+    console.log(this.id);
+    console.log(this.hatgeklappt);
+    this.getId(id);
+    this.hatgeklappt.subscribe((err: string) => {
+
+      console.log(this.hatgeklappt);
+
+      this.http.delete('https://pr0jectzer0.ml/api/friend/remove/'+this.id+'?token=' + this.token)
+          .subscribe(
+              data => {
+                console.log("WE GOT SOME FKN DATA, FINALLY");
+                this.getFriends();
+                this.userWasDeleted();
+                return;
+              }, err => {
+                console.log("THERE WAS AN ERRORR HELPPPPPPPPPPPPPPPPP");
+                return;
+              }
+      );
+
+
+    });
+  }
+
   getId(username: string){
-    console.log(username);
+    console.log("getid: "+username);
 
     this.http.get("https://pr0jectzer0.ml/api/users?token="+this.token)
         .subscribe(
@@ -84,43 +110,20 @@ export class FriendlistPage implements OnInit{
               for(var i in (data as any).users){
                   if(username==(data as any).users[i].name){
                     this.id=((data as any).users[i].id);
-                    this.hatgeklappt.next("Hallo ich bin ?XD");
+                    console.log("sollte geklappt haben, hm");
+                    this.hatgeklappt.next(true);
                     return;
                   }
                 }
                 this.userNotFound();
 
             }, err => {
-
+                console.log("getID error, kek");
+                return;
             }
         );
 
   }
-
-  userWasAdded() {
-  let toast = this.toastCtrl.create({
-    message: 'Benutzer wurde hinzugefügt.',
-    duration: 3000,
-    position: 'top'
-  });
-  toast.onDidDismiss(() => {
-    console.log('Dismissed toast');
-  });
-
-  toast.present();
-}
-  userNotFound() {
-  let toast = this.toastCtrl.create({
-    message: 'Diesen Benutzer gibt es nicht.',
-    duration: 3000,
-    position: 'top'
-  });
-  toast.onDidDismiss(() => {
-    console.log('Dismissed toast');
-  });
-
-  toast.present();
-}
 
   addFriendPrompt(){
     let prompt = this.alertCtrl.create({
@@ -154,7 +157,44 @@ export class FriendlistPage implements OnInit{
         });
         prompt.present();
   }
+  userNotFound() {
+  let toast = this.toastCtrl.create({
+    message: 'Diesen Benutzer gibt es nicht.',
+    duration: 3000,
+    position: 'top'
+  });
+  toast.onDidDismiss(() => {
+    console.log('Dismissed toast');
+  });
 
+  toast.present();
+}
+
+  userWasAdded() {
+  let toast = this.toastCtrl.create({
+    message: 'Benutzer wurde hinzugefügt.',
+    duration: 3000,
+    position: 'top'
+  });
+  toast.onDidDismiss(() => {
+    console.log('Dismissed toast');
+  });
+
+  toast.present();
+}
+
+  userWasDeleted() {
+  let toast = this.toastCtrl.create({
+    message: 'Benutzer wurde entfernt.',
+    duration: 3000,
+    position: 'top'
+  });
+  toast.onDidDismiss(() => {
+    console.log('Dismissed toast');
+  });
+
+  toast.present();
+}
 
 
 }
