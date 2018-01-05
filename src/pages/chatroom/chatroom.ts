@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { HttpClient } from '@angular/common/http';
 
 /**
  * Generated class for the ChatroomPage page.
@@ -15,15 +16,33 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class ChatroomPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  @ViewChild('message') message;
+
+  chatroom: any = 26;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public http: HttpClient) {
+    this.token = this.navParams.get('token');
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ChatroomPage');
   }
 
+  getChatroom(){
+
+  }
+
   sendMessage(){
-    
+    console.log(this.message.value);
+
+    this.http.post('https://pr0jectzer0.ml/api/chatroom/'+this.chatroom+'/messages?token=' + this.token, {'message': this.message.value})
+        .subscribe(
+            data => {
+              console.log(data);
+            }, err => {
+
+            }
+        );
   }
 
 }
