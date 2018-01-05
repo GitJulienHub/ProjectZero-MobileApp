@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
 import { Subject } from "rxjs/Subject";
+import { ChatroomPage } from '../chatroom/chatroom';
 /**
  * Generated class for the FriendlistPage page.
  *
@@ -74,7 +75,14 @@ export class FriendlistPage implements OnInit{
     //this.friends.push(this.name);
 
   }
+  openChat(username: string){
+    this.getId(username)
+      .then(data => {
 
+        this.navCtrl.push(ChatroomPage,{'token' : this.token,'user': this.id});
+
+      });
+  }
   deleteFriend(id: string){
     console.log(this.id);
     this.getId(id)

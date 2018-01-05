@@ -18,22 +18,65 @@ export class ChatroomPage {
 
   @ViewChild('message') message;
 
-  chatroom: any = 26;
+  chatroom: any;
+
   messages: any;
+
+  token: any;
+  user: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public http: HttpClient) {
     this.token = this.navParams.get('token');
+    this.user = this.navParams.get('user');
+
+  
+    this.messages = [];
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ChatroomPage');
   }
 
+
+  updateMessages() {
+
+    this.getChatroom()
+      .then(data => {
+         this.http.get("https://pr0jectzer0.ml/api/chatroom/" + this.chatroom + "/messages?token=" + this.token)
+           .subscribe(
+             data => {
+               //console.log(data);
+               this.messages = data['message'];
+               console.log(this.messages.message);
+               this.messages = [];
+               var message;
+               var username;
+               console.log(data);
+               for(var i in (data as any).message){
+
+                  message = ((data as any).message[i].message);
+                  username = ((data as any).message[i].user.name);
+                  this.messages.push(username+": "+message);
+                 //this.friends.push((data as any).friends[i].name);
+               }
+               console.log(this.messages);
+
+             }
+           );
+         });
+
+   }
+
+
   getChatroom(){
-    this.http.get("https://pr0jectzer0.ml/api/chatroom/?token="+this.token)
+      return new Promise(resolve => {
+        this.http.get("https://pr0jectzer0.ml/api/chatroom/"+this.user+"?token="+this.token)
         .subscribe(
             data => {
+              console.log("https://pr0jectzer0.ml/api/chatroom/"+this.user+"?token="+this.token);
               console.log(data);
+              this.chatroom = data['chatroom'];
+              resolve(this.chatroom);
             /*  this.messages = [];
               for(var i in (data as any).messages){
                 this.messages.push((data as any).messages[i].name);
@@ -44,20 +87,25 @@ export class ChatroomPage {
 
             }
         );
+        });
   }
 
   sendMessage(){
     console.log(this.message.value);
-    getChatroom()
-      .then
-    this.http.post('https://pr0jectzer0.ml/api/chatroom/'+this.chatroom+'/messages?token=' + this.token, {'message': this.message.value})
-        .subscribe(
-            data => {
-              console.log(data);
-            }, err => {
+    this.getChatroom()
+      .then(data => {
+        this.http.post('https://pr0jectzer0.ml/api/chatroom/'+this.chatroom+'/messages?token=' + this.token, {'message': this.message.value})
+            .subscribe(
+                data => {
 
-            }
-        );
+                  console.log(data);
+                  this.updateMessages();
+                }, err => {
+
+                }
+            );
+      });
+
   }
 
 }
