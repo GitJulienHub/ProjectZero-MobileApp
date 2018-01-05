@@ -20,7 +20,6 @@ export class FriendlistPage implements OnInit{
   friends: any;
   error: string = null;
   token: any;
-  hatgeklappt = new Subject<any>();
 
   id: any;
 
@@ -78,12 +77,8 @@ export class FriendlistPage implements OnInit{
 
   deleteFriend(id: string){
     console.log(this.id);
-    console.log(this.hatgeklappt);
-    this.getId(id);
-    this.hatgeklappt.subscribe((err: string) => {
-
-      console.log(this.hatgeklappt);
-
+    this.getId(id)
+    .then(data => {
       this.http.delete('https://pr0jectzer0.ml/api/friend/remove/'+this.id+'?token=' + this.token)
           .subscribe(
               data => {
@@ -96,34 +91,45 @@ export class FriendlistPage implements OnInit{
                 return;
               }
       );
-
-
     });
+
+
+
+
+
   }
 
   getId(username: string){
     console.log("getid: "+username);
-
-    this.http.get("https://pr0jectzer0.ml/api/users?token="+this.token)
-        .subscribe(
-            data => {
-              for(var i in (data as any).users){
-                  if(username==(data as any).users[i].name){
-                    this.id=((data as any).users[i].id);
-                    console.log("sollte geklappt haben, hm");
-                    this.hatgeklappt.next(true);
-                    return;
+    return new Promise(resolve => {
+      this.http.get("https://pr0jectzer0.ml/api/users?token="+this.token)
+          .subscribe(
+              data => {
+                for(var i in (data as any).users){
+                    if(username==(data as any).users[i].name){
+                      this.id=((data as any).users[i].id);
+                      console.log("sollte geklappt haben, hm");
+                      //this.hatgeklappt.next(true);
+                      resolve(this.id);
+                      return;
+                    }
                   }
-                }
-                this.userNotFound();
+                  this.userNotFound();
 
-            }, err => {
-                console.log("getID error, kek");
-                return;
-            }
-        );
+              }, err => {
+                  console.log("getID error, kek");
+                  return;
+              }
+          );
+     });
+
 
   }
+
+
+
+
+
 
   addFriendPrompt(){
     let prompt = this.alertCtrl.create({
@@ -147,10 +153,9 @@ export class FriendlistPage implements OnInit{
               handler: data => {
                 this.name = data.name;
                 this.getId(data.name)
-                this.hatgeklappt.subscribe((err: string) => {
+                .then(data => {
                   this.addFriend(this.id);
                 });
-
               }
             }
           ]
