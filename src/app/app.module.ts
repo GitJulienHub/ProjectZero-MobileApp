@@ -21,12 +21,14 @@ import { AuthService } from '../pages/auth.service';
 import { HttpClientModule } from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {FriendlistPage} from "../pages/friendlist/friendlist";
+import {ChatroomPage} from "../pages/chatroom/chatroom";
 
 @NgModule({
   declarations: [
     MyApp,
     AboutPage,
     ContactPage,
+    ChatroomPage,
     HomePage,
     TabsPage,
     LoginPage,
@@ -46,6 +48,7 @@ import {FriendlistPage} from "../pages/friendlist/friendlist";
     MyApp,
     AboutPage,
     ContactPage,
+    ChatroomPage,
     HomePage,
     TabsPage,
     LoginPage,

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams} from 'ionic-angular';
 import { HomePage } from '../home/home';
 import {FriendlistPage} from "../friendlist/friendlist";
+import { ChatroomPage } from '../chatroom/chatroom';
 /**
  * Generated class for the WillkommenPage page.
  *
@@ -27,6 +28,11 @@ export class WillkommenPage {
   friendlist(){
       const authService = this.navParams.get('auth');
     this.navCtrl.push(FriendlistPage,{'token' : authService.getToken()});
+  }
+
+  chatroom(){
+    const authService = this.navParams.get('auth');
+  this.navCtrl.push(ChatroomPage,{'token' : authService.getToken()});
   }
 
   logout(){
