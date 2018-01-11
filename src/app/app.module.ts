@@ -22,6 +22,7 @@ import { HttpClientModule } from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {FriendlistPage} from "../pages/friendlist/friendlist";
 import {ChatroomPage} from "../pages/chatroom/chatroom";
+import {PusherService} from '../shared/pusher.service';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import {ChatroomPage} from "../pages/chatroom/chatroom";
     StatusBar,
     SplashScreen,
     AuthService,
+    PusherService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

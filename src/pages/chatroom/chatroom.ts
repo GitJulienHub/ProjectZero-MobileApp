@@ -1,6 +1,7 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
+import {PusherService} from '../../shared/pusher.service';
 
 /**
  * Generated class for the ChatroomPage page.
@@ -14,7 +15,7 @@ import { HttpClient } from '@angular/common/http';
   selector: 'page-chatroom',
   templateUrl: 'chatroom.html',
 })
-export class ChatroomPage {
+export class ChatroomPage implements OnInit{
 
   @ViewChild('message') message;
 
@@ -24,14 +25,29 @@ export class ChatroomPage {
 
   token: any;
   user: any;
+  channel: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public http: HttpClient) {
+  constructor(public navCtrl: NavController, private p: PusherService, public navParams: NavParams, public http: HttpClient) {
     this.token = this.navParams.get('token');
     this.user = this.navParams.get('user');
+    this.updateMessages();
 
-  
+
     this.messages = [];
   }
+
+  ngOnInit() {
+  // this.route.params.subscribe(params => {
+  //   this.chatid = params['id'];
+  //   this.updateMessages();
+  // });
+
+  this.channel = this.p.pusher.subscribe('private-chat.' + this.chatid);
+  this.channel.bind('App\\Events\\MessageSent', () => {
+    console.log("Herro");
+    this.updateMessages();
+  });
+}
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ChatroomPage');
