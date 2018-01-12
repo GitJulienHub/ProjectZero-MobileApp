@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
 import {PusherService} from '../../shared/pusher.service';
+//import {Pusher} from 'pusher-js'
 
 /**
  * Generated class for the ChatroomPage page.

@@ -19,7 +19,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AddGroupModalPage {
 
-  options: ImagePickerOptions;
+  //options: ImagePickerOptions;
   token: any;
 
   @ViewChild('groupname') groupname;
