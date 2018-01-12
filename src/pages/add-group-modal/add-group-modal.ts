@@ -31,10 +31,13 @@ export class AddGroupModalPage {
   }
 
   sendGroupData(){
+    console.log("lol "+this.groupname.value);
+    console.log("lol2 "+this.groupdesc.value);
     this.http.post('https://pr0jectzer0.ml/api/group?token=' + this.token, {'name': this.groupname.value, 'beschreibung': this.groupdesc.value})
         .subscribe(
             data => {
               this.groupAdded();
+              console.log(data);
             }, err => {
               this.groupNotAdded();
             }

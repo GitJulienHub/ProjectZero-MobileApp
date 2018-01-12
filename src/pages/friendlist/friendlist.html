@@ -40,19 +40,12 @@
 
 
     <ion-list *ngSwitchCase="'Groups'">
-      <ion-item>
-        <ion-thumbnail item-start>
-          <img src="./../../img/group.jpg"/>
-        </ion-thumbnail>
-        <h2>Gruppe 1</h2>
-      </ion-item>
       <ion-item *ngFor="let group of groups">
         <ion-thumbnail item-start>
         <img src="./../../img/somepic.jpg"/>
         </ion-thumbnail>
         <h2>{{group}}</h2>
-        <button ion-button-color="danger" (click)="deleteFriend(friend)" round>-</button>
-        <button ion-button-color="danger" (click)="openChat(friend)" round>chat</button>
+        <button ion-button-color="danger" (click)="deleteGroup(group)" round>-</button>
       </ion-item>
     </ion-list>
 

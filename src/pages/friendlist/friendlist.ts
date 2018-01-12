@@ -36,6 +36,7 @@ export class FriendlistPage implements OnInit{
 
     this.friendlist="Friends";
     this.getFriends();
+    this.getGroups();
     console.log(this.friends);
   }
 
@@ -53,6 +54,24 @@ export class FriendlistPage implements OnInit{
                 this.friends.push((data as any).friends[i].name);
               }
               console.log(this.friends);
+            }, err => {
+
+            }
+        );
+  }
+
+  getGroups(){
+    console.log(this.token);
+    this.http.get("https://pr0jectzer0.ml/api/groups?token="+this.token)
+        .subscribe(
+            data => {
+              this.groups = [];
+              console.log(data);
+              for(var i in (data as any).groups){
+                this.groups.push((data as any).groups[i].name);
+                console.log((data as any).groups[i].name);
+              }
+              console.log(this.groups);
             }, err => {
 
             }
@@ -103,11 +122,25 @@ export class FriendlistPage implements OnInit{
               }
       );
     });
+  }
 
-
-
-
-
+  deleteGroup(id: string){
+    console.log(this.id);
+    this.getGroupId(id)
+    .then(data => {
+      this.http.delete('https://pr0jectzer0.ml/api/group/'+this.id+'?token=' + this.token)
+          .subscribe(
+              data => {
+                console.log("WE GOT SOME FKN DATA, FINALLY");
+                this.getGroups();
+                this.groupWasDeleted();
+                return;
+              }, err => {
+                console.log("THERE WAS AN ERRORR HELPPPPPPPPPPPPPPPPP");
+                return;
+              }
+      );
+    });
   }
 
   getId(username: string){
@@ -133,8 +166,31 @@ export class FriendlistPage implements OnInit{
               }
           );
      });
+  }
 
+  getGroupId(groupname: string){
+    console.log("Gruppenname: "+groupname);
+    return new Promise(resolve => {
+      this.http.get("https://pr0jectzer0.ml/api/groups?token="+this.token)
+          .subscribe(
+              data => {
+                for(var i in (data as any).groups){
+                    if(groupname==(data as any).groups[i].name){
+                      this.id=((data as any).groups[i].id);
+                      console.log("sollte geklappt haben, hm");
+                      //this.hatgeklappt.next(true);
+                      resolve(this.id);
+                      return;
+                    }
+                  }
+                  this.groupNotFound();
 
+              }, err => {
+                  console.log("getID error, kek");
+                  return;
+              }
+          );
+     });
   }
 
 
@@ -178,6 +234,8 @@ export class FriendlistPage implements OnInit{
 
    let profileModal = this.modalCtrl.create(AddGroupModalPage, {'token': this.token});
    profileModal.present();
+   this.getGroups();
+
   }
 
 
@@ -192,6 +250,19 @@ export class FriendlistPage implements OnInit{
   });
 
   toast.present();
+}
+
+groupNotFound() {
+let toast = this.toastCtrl.create({
+  message: 'Diese Gruppe gibt es nicht.',
+  duration: 3000,
+  position: 'top'
+});
+toast.onDidDismiss(() => {
+  console.log('Dismissed toast');
+});
+
+toast.present();
 }
 
   userWasAdded() {
@@ -218,6 +289,19 @@ export class FriendlistPage implements OnInit{
   });
 
   toast.present();
+}
+
+groupWasDeleted() {
+let toast = this.toastCtrl.create({
+  message: 'Gruppe wurde entfernt.',
+  duration: 3000,
+  position: 'top'
+});
+toast.onDidDismiss(() => {
+  console.log('Dismissed toast');
+});
+
+toast.present();
 }
 
 
