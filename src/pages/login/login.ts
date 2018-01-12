@@ -39,7 +39,7 @@ export class LoginPage implements OnInit{
     console.log('Would sign in with ', this.user.value, this.password.value);
     const email = this.user.value;
     const password =this.password.value;
-    this.authService.signinUser(email, password);
+    this.authService.signinUser("testb@b.de", "12345678");   //(email, password);
 
 
     if(this.authService.isAuthenticated() == true){

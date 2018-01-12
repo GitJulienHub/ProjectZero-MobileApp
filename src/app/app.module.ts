@@ -23,6 +23,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {FriendlistPage} from "../pages/friendlist/friendlist";
 import {ChatroomPage} from "../pages/chatroom/chatroom";
 import {PusherService} from '../shared/pusher.service';
+import { AddGroupModalPage } from '../pages/add-group-modal/add-group-modal'
+import { ImagePicker } from '@ionic-native/image-picker';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,7 @@ import {PusherService} from '../shared/pusher.service';
     AboutPage,
     ContactPage,
     ChatroomPage,
+    AddGroupModalPage,
     HomePage,
     TabsPage,
     LoginPage,
@@ -50,6 +53,7 @@ import {PusherService} from '../shared/pusher.service';
     AboutPage,
     ContactPage,
     ChatroomPage,
+    AddGroupModalPage,
     HomePage,
     TabsPage,
     LoginPage,
@@ -61,6 +65,7 @@ import {PusherService} from '../shared/pusher.service';
     StatusBar,
     SplashScreen,
     AuthService,
+    ImagePicker,
     PusherService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]

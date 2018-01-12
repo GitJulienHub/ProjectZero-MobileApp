@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
+import { IonicPage, ModalController, NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
 import { Subject } from "rxjs/Subject";
 import { ChatroomPage } from '../chatroom/chatroom';
+import { AddGroupModalPage } from '../add-group-modal/add-group-modal'
 /**
  * Generated class for the FriendlistPage page.
  *
@@ -19,13 +20,15 @@ export class FriendlistPage implements OnInit{
   friendlist: string;
   name: string;
   friends: any;
+  groups: any;
   error: string = null;
   token: any;
 
   id: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public http: HttpClient, private toastCtrl: ToastController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public http: HttpClient, private toastCtrl: ToastController, public modalCtrl: ModalController) {
     this.friends = ['hoppöla'];
+    this.groups = ['gitjulienhub'];
     this.token = this.navParams.get('token');
     console.log(this.token);
 
@@ -170,6 +173,14 @@ export class FriendlistPage implements OnInit{
         });
         prompt.present();
   }
+
+  addGroupModal(){
+
+   let profileModal = this.modalCtrl.create(AddGroupModalPage, {'token': this.token});
+   profileModal.present();
+  }
+
+
   userNotFound() {
   let toast = this.toastCtrl.create({
     message: 'Diesen Benutzer gibt es nicht.',

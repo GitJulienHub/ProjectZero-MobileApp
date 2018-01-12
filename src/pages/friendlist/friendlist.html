@@ -46,7 +46,14 @@
         </ion-thumbnail>
         <h2>Gruppe 1</h2>
       </ion-item>
-      ...
+      <ion-item *ngFor="let group of groups">
+        <ion-thumbnail item-start>
+        <img src="./../../img/somepic.jpg"/>
+        </ion-thumbnail>
+        <h2>{{group}}</h2>
+        <button ion-button-color="danger" (click)="deleteFriend(friend)" round>-</button>
+        <button ion-button-color="danger" (click)="openChat(friend)" round>chat</button>
+      </ion-item>
     </ion-list>
 
   </div>
@@ -58,8 +65,14 @@
 
 <ion-footer>
   <ion-toolbar>
-    <div text-center>
-      <button ion-button color="secondary" (click)="addFriendPrompt()" round>Freund hinzufügen</button>
+    <div text-center [ngSwitch]="friendlist">
+      <ion-list *ngSwitchCase="'Friends'">
+        <button ion-button color="secondary" (click)="addFriendPrompt()" round>Freund hinzufügen</button>
+      </ion-list>
+      <ion-list *ngSwitchCase="'Groups'">
+        <button ion-button color="primary" (click)="addGroupModal()" round>Gruppe erstellen</button>
+      </ion-list>
     </div>
+
   </ion-toolbar>
 </ion-footer>

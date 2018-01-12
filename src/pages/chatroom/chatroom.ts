@@ -42,11 +42,11 @@ export class ChatroomPage implements OnInit{
   //   this.updateMessages();
   // });
 
-  this.channel = this.p.pusher.subscribe('private-chat.' + this.chatid);
-  this.channel.bind('App\\Events\\MessageSent', () => {
-    console.log("Herro");
-    this.updateMessages();
-  });
+  // this.channel = this.p.pusher.subscribe('private-chat.' + this.chatid);
+  // this.channel.bind('App\\Events\\MessageSent', () => {
+  //   console.log("Herro");
+  //   this.updateMessages();
+  // });
 }
 
   ionViewDidLoad() {
