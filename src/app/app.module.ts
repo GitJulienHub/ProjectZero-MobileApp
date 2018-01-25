@@ -31,6 +31,7 @@ import { GroupModalPage } from '../pages/group-modal/group-modal'
 import { AddNoteModalPage } from '../pages/add-note-modal/add-note-modal'
 import { EditNoteModalPage } from '../pages/edit-note-modal/edit-note-modal'
 import { ShowNoteModalPage } from '../pages/show-note-modal/show-note-modal'
+import { NoteMemberModalPage } from '../pages/note-member-modal/note-member-modal';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { ShowNoteModalPage } from '../pages/show-note-modal/show-note-modal'
     NotificationsPage,
     EditNoteModalPage,
     ShowNoteModalPage,
+    NoteMemberModalPage,
     NotesPage,
     GroupModalPage,
     AddNoteModalPage,
@@ -66,6 +68,7 @@ import { ShowNoteModalPage } from '../pages/show-note-modal/show-note-modal'
     ContactPage,
     AddNoteModalPage,
     EditNoteModalPage,
+    NoteMemberModalPage,
     ShowNoteModalPage,
     ChatroomPage,
     NotesPage,

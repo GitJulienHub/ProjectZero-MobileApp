@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
 import { AddNoteModalPage } from '../add-note-modal/add-note-modal'
-import { EditNoteModalPage } from '../edit-note-modal/edit-note-modal'
 import { ShowNoteModalPage } from '../show-note-modal/show-note-modal'
 
 /**
@@ -59,11 +58,6 @@ export class NotesPage implements OnInit{
    noteModal.present();
    this.getNotes();
 
-  }
-
-  editNoteModal(note: any){
-    let editNoteModal = this.modalCtrl.create(EditNoteModalPage, {'token': this.token, 'note': note});
-    editNoteModal.present();
   }
 
   showNoteModal(note: any){

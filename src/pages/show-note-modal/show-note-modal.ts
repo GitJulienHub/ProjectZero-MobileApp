@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { EditNoteModalPage } from '../edit-note-modal/edit-note-modal';
+import { NoteMemberModalPage } from '../note-member-modal/note-member-modal';
 
 /**
  * Generated class for the ShowNoteModalPage page.
@@ -17,8 +19,10 @@ export class ShowNoteModalPage {
   note: any;
   title: string;
   noteval: string;
+  token: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController) {
+    this.token = navParams.get('token');
     this.note = navParams.get('note');
     console.log("note log: ", this.note.titel);
     this.title = this.note.titel;
@@ -27,6 +31,11 @@ export class ShowNoteModalPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ShowNoteModalPage');
+  }
+
+  editNoteModal(){
+    let editNoteModal = this.modalCtrl.create(EditNoteModalPage, {'token': this.token, 'note': this.note});
+    editNoteModal.present();
   }
 
   closeModal(){
