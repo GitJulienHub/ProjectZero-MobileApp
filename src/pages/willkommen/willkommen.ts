@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams} from 'ionic-angular';
 import { HomePage } from '../home/home';
 import {FriendlistPage} from "../friendlist/friendlist";
 import { ChatroomPage } from '../chatroom/chatroom';
+import { NotesPage } from '../notes/notes';
+import { NotificationsPage } from '../notifications/notifications';
 /**
  * Generated class for the WillkommenPage page.
  *
@@ -33,6 +35,16 @@ export class WillkommenPage {
   chatroom(){
     const authService = this.navParams.get('auth');
   this.navCtrl.push(ChatroomPage,{'token' : authService.getToken()});
+  }
+
+  notes(){
+    const authService = this.navParams.get('auth');
+  this.navCtrl.push(NotesPage,{'token' : authService.getToken()});
+  }
+
+  notifications(){
+    const authService = this.navParams.get('auth');
+  this.navCtrl.push(NotificationsPage,{'token' : authService.getToken()});
   }
 
   logout(){

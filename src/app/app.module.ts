@@ -25,12 +25,18 @@ import {ChatroomPage} from "../pages/chatroom/chatroom";
 import {PusherService} from '../shared/pusher.service';
 import { AddGroupModalPage } from '../pages/add-group-modal/add-group-modal'
 import { ImagePicker } from '@ionic-native/image-picker';
+import { NotesPage } from '../pages/notes/notes'
+import { NotificationsPage } from '../pages/notifications/notifications'
+import { GroupModalPage } from '../pages/group-modal/group-modal'
 
 @NgModule({
   declarations: [
     MyApp,
     AboutPage,
     ContactPage,
+    NotificationsPage,
+    NotesPage,
+    GroupModalPage,
     ChatroomPage,
     AddGroupModalPage,
     HomePage,
@@ -53,6 +59,9 @@ import { ImagePicker } from '@ionic-native/image-picker';
     AboutPage,
     ContactPage,
     ChatroomPage,
+    NotesPage,
+    GroupModalPage,
+    NotificationsPage,
     AddGroupModalPage,
     HomePage,
     TabsPage,

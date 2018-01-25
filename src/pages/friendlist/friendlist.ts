@@ -4,6 +4,7 @@ import { IonicPage, ModalController, NavController, NavParams, AlertController, 
 import { Subject } from "rxjs/Subject";
 import { ChatroomPage } from '../chatroom/chatroom';
 import { AddGroupModalPage } from '../add-group-modal/add-group-modal'
+import { GroupModalPage } from '../group-modal/group-modal'
 /**
  * Generated class for the FriendlistPage page.
  *
@@ -51,7 +52,7 @@ export class FriendlistPage implements OnInit{
             data => {
               this.friends = [];
               for(var i in (data as any).friends){
-                this.friends.push((data as any).friends[i].name);
+                this.friends.push((data as any).friends[i].friend_user);
               }
               console.log(this.friends);
             }, err => {
@@ -62,14 +63,14 @@ export class FriendlistPage implements OnInit{
 
   getGroups(){
     console.log(this.token);
-    this.http.get("https://pr0jectzer0.ml/api/groups?token="+this.token)
+    this.http.get("https://pr0jectzer0.ml/api/user/groups?token="+this.token)
         .subscribe(
             data => {
               this.groups = [];
               console.log(data);
               for(var i in (data as any).groups){
-                this.groups.push((data as any).groups[i].name);
-                console.log((data as any).groups[i].name);
+                this.groups.push((data as any).groups[i]);
+                console.log((data as any).groups[i]);
               }
               console.log(this.groups);
             }, err => {
@@ -89,7 +90,7 @@ export class FriendlistPage implements OnInit{
         .subscribe(
             data => {
               this.getFriends();
-              this.userWasAdded();
+              this.toast('Freundschaftsanfrage verschickt');
             }, err => {
 
             }
@@ -114,7 +115,7 @@ export class FriendlistPage implements OnInit{
               data => {
                 console.log("WE GOT SOME FKN DATA, FINALLY");
                 this.getFriends();
-                this.userWasDeleted();
+                this.toast('Freund wurde entfernt.');
                 return;
               }, err => {
                 console.log("THERE WAS AN ERRORR HELPPPPPPPPPPPPPPPPP");
@@ -133,7 +134,7 @@ export class FriendlistPage implements OnInit{
               data => {
                 console.log("WE GOT SOME FKN DATA, FINALLY");
                 this.getGroups();
-                this.groupWasDeleted();
+                this.toast('Gruppe wurde entfernt.');
                 return;
               }, err => {
                 console.log("THERE WAS AN ERRORR HELPPPPPPPPPPPPPPPPP");
@@ -141,6 +142,13 @@ export class FriendlistPage implements OnInit{
               }
       );
     });
+  }
+
+  showGroup(group: any){
+    this.getFriends();
+    console.log('ICH HAB E DOCH FRUEUNDE', this.friends);
+    let groupModal = this.modalCtrl.create(GroupModalPage, {'token': this.token, 'group': group, 'friends': this.friends});
+    groupModal.present();
   }
 
   getId(username: string){
@@ -158,7 +166,7 @@ export class FriendlistPage implements OnInit{
                       return;
                     }
                   }
-                  this.userNotFound();
+                  this.toast("Diesen Benutzer gibt es nicht.");
 
               }, err => {
                   console.log("getID error, kek");
@@ -183,7 +191,7 @@ export class FriendlistPage implements OnInit{
                       return;
                     }
                   }
-                  this.groupNotFound();
+                  this.toast("Diese Gruppe gibt es nicht.");
 
               }, err => {
                   console.log("getID error, kek");
@@ -192,9 +200,6 @@ export class FriendlistPage implements OnInit{
           );
      });
   }
-
-
-
 
 
 
@@ -239,68 +244,12 @@ export class FriendlistPage implements OnInit{
   }
 
 
-  userNotFound() {
-  let toast = this.toastCtrl.create({
-    message: 'Diesen Benutzer gibt es nicht.',
-    duration: 3000,
-    position: 'top'
-  });
-  toast.onDidDismiss(() => {
-    console.log('Dismissed toast');
-  });
-
-  toast.present();
-}
-
-groupNotFound() {
+toast(msg : any ) {
 let toast = this.toastCtrl.create({
-  message: 'Diese Gruppe gibt es nicht.',
+  message: msg,
   duration: 3000,
   position: 'top'
 });
-toast.onDidDismiss(() => {
-  console.log('Dismissed toast');
-});
-
-toast.present();
-}
-
-  userWasAdded() {
-  let toast = this.toastCtrl.create({
-    message: 'Benutzer wurde hinzugefügt.',
-    duration: 3000,
-    position: 'top'
-  });
-  toast.onDidDismiss(() => {
-    console.log('Dismissed toast');
-  });
-
-  toast.present();
-}
-
-  userWasDeleted() {
-  let toast = this.toastCtrl.create({
-    message: 'Benutzer wurde entfernt.',
-    duration: 3000,
-    position: 'top'
-  });
-  toast.onDidDismiss(() => {
-    console.log('Dismissed toast');
-  });
-
-  toast.present();
-}
-
-groupWasDeleted() {
-let toast = this.toastCtrl.create({
-  message: 'Gruppe wurde entfernt.',
-  duration: 3000,
-  position: 'top'
-});
-toast.onDidDismiss(() => {
-  console.log('Dismissed toast');
-});
-
 toast.present();
 }
 

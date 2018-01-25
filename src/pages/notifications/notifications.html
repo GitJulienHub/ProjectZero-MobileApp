@@ -1,0 +1,36 @@
+<!--
+  Generated template for the NotificationsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Benachrichtigungen</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list>
+      <ion-item *ngFor="let notificationFriend of notificationsFriend">
+        <h2>Freundschaftsanfrage</h2>
+        <h2>{{notificationFriend.user.name}}</h2>
+        <button ion-button-color="primary" (click)="acceptFriend(notificationFriend)" round>Accept</button>
+        <button ion-button-color="secondary" (click)="declineFriend(notificationFriend)" round>Decline</button>
+      </ion-item>
+      <ion-item *ngFor="let notificationGroup of notificationsGroup">
+        <h2>Gruppenanfragen</h2>
+        <h2>{{notificationGroup}}</h2>
+        <button ion-button-color="primary" (click)="acceptGroup(notificationGroup)" round>Accept</button>
+        <button ion-button-color="secondary" (click)="declineGroup(notificationGroup)" round>Decline</button>
+      </ion-item>
+      <ion-item *ngFor="let notificationNote of notificationsNote">
+        <h2>{{notificationNote}}</h2>
+        <button ion-button-color="primary" (click)="acceptNote(notificationNote)" round>Accept</button>
+        <button ion-button-color="secondary" (click)="declineNote(notificationNote)" round>Decline</button>
+      </ion-item>
+  </ion-list>
+</ion-content>

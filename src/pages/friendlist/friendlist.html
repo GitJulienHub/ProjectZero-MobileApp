@@ -32,7 +32,7 @@
           <ion-thumbnail item-start>
           <img src="./../../img/somepic.jpg"/>
           </ion-thumbnail>
-          <h2>{{friend}}</h2>
+          <h2>{{friend.name}}</h2>
           <button ion-button-color="danger" (click)="deleteFriend(friend)" round>-</button>
           <button ion-button-color="danger" (click)="openChat(friend)" round>chat</button>
         </ion-item>
@@ -44,8 +44,9 @@
         <ion-thumbnail item-start>
         <img src="./../../img/somepic.jpg"/>
         </ion-thumbnail>
-        <h2>{{group}}</h2>
+        <h2>{{group.name}}</h2>
         <button ion-button-color="danger" (click)="deleteGroup(group)" round>-</button>
+        <button ion-button-color="danger" (click)="showGroup(group)" round>Details</button>
       </ion-item>
     </ion-list>
 

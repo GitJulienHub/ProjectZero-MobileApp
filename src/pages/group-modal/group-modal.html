@@ -1,0 +1,79 @@
+<!--
+  Generated template for the GroupModalPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{title}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div padding>
+    <ion-segment [(ngModel)]="groupdetails">
+      <ion-segment-button value="Details">
+        Details
+      </ion-segment-button>
+      <ion-segment-button value="Member">
+        Member
+      </ion-segment-button>
+      <ion-segment-button value="Friends">
+        Einladen
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <div [ngSwitch]="groupdetails">
+
+    <ion-list *ngSwitchCase="'Details'">
+        <ion-item >
+          <ion-thumbnail>
+          <img src="./../../img/somepic.jpg"/>
+          </ion-thumbnail>
+        </ion-item>
+        <ion-item-divider>
+            <p>Erstellungsdatum: {{createDate}}</p>
+        </ion-item-divider>
+        <ion-item-divider>
+            <p>Letztes Update: {{updateDate}}</p>
+        </ion-item-divider>
+        <ion-item-divider>
+            <p>Gruppenbeschreibung: {{describtion}}</p>
+        </ion-item-divider>
+
+    </ion-list>
+
+
+    <ion-list *ngSwitchCase="'Member'">
+      <ion-item *ngFor="let user of users">
+        <ion-thumbnail item-start>
+        <img src="./../../img/somepic.jpg"/>
+        </ion-thumbnail>
+        <h2>{{user.user.name}}</h2>
+        <p>Rolle: {{user.rolle}}</p>
+      </ion-item>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'Friends'">
+      <ion-item *ngFor="let friend of friends">
+        <ion-thumbnail item-start>
+        <img src="./../../img/somepic.jpg"/>
+        </ion-thumbnail>
+        <h2>{{friend.name}}</h2>
+        <button ion-button color="secondary" (click)="inviteFriend(friend.id)" round outline>Einladen</button>
+      </ion-item>
+    </ion-list>
+
+  </div>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <button ion-button color="secondary" (click)="closeModal()" round outline>Zurück</button>
+  </ion-toolbar>
+</ion-footer>
