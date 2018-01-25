@@ -100,8 +100,6 @@ export class NotificationsPage {
 
 
   acceptFriend(notificationFriend: any){
-
-
     this.http.get('https://pr0jectzer0.ml/api/friend/'+notificationFriend.id+'/accept?token=' + this.token)
         .subscribe(
             data => {
@@ -130,7 +128,7 @@ export class NotificationsPage {
         );
   }
 
-  acceptGroup(notificationGroup: string){
+  acceptGroup(notificationGroup: any){
     this.http.get('https://pr0jectzer0.ml/api/group/'+notificationGroup.id+'/accept/?token=' + this.token)
         .subscribe(
             data => {
@@ -144,7 +142,7 @@ export class NotificationsPage {
         );
   }
 
-  declineGroup(notificationGroup: string){
+  declineGroup(notificationGroup: any){
     this.http.get('https://pr0jectzer0.ml/api/group/'+notificationGroup.id+'/decline/?token=' + this.token)
         .subscribe(
             data => {
@@ -158,7 +156,7 @@ export class NotificationsPage {
         );
   }
 
-  acceptNote(notificationNote: string){
+  acceptNote(notificationNote: any){
     this.http.get('https://pr0jectzer0.ml/api/note/'+notificationNote.id+'/accept/?token=' + this.token)
         .subscribe(
             data => {
@@ -172,7 +170,7 @@ export class NotificationsPage {
         );
   }
 
-  declineNote(notificationNote: string){
+  declineNote(notificationNote: any){
     this.http.get('https://pr0jectzer0.ml/api/note/'+notificationNote.id+'/decline/?token=' + this.token)
         .subscribe(
             data => {

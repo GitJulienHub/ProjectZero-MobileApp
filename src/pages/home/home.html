@@ -5,10 +5,20 @@
 </ion-header>
 
 <ion-content padding>
-    <button block ion-button (click)="signIn()" item-left>
-      Login
-    </button>
-    <button block ion-button (click)="register()" item-left>
-      Registrieren
-    </button>
+  <div text-center>
+    <h2>Willkommen in der Ionic App von Pr0jectZero0</h2>
+  </div>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <div text-center>
+      <button block ion-button (click)="signIn()" >
+        Login
+      </button>
+      <button block ion-button (click)="register()" >
+        Registrieren
+      </button>
+    </div>
+  </ion-toolbar>
+</ion-footer>

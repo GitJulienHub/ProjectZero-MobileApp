@@ -28,6 +28,9 @@ import { ImagePicker } from '@ionic-native/image-picker';
 import { NotesPage } from '../pages/notes/notes'
 import { NotificationsPage } from '../pages/notifications/notifications'
 import { GroupModalPage } from '../pages/group-modal/group-modal'
+import { AddNoteModalPage } from '../pages/add-note-modal/add-note-modal'
+import { EditNoteModalPage } from '../pages/edit-note-modal/edit-note-modal'
+import { ShowNoteModalPage } from '../pages/show-note-modal/show-note-modal'
 
 @NgModule({
   declarations: [
@@ -35,8 +38,11 @@ import { GroupModalPage } from '../pages/group-modal/group-modal'
     AboutPage,
     ContactPage,
     NotificationsPage,
+    EditNoteModalPage,
+    ShowNoteModalPage,
     NotesPage,
     GroupModalPage,
+    AddNoteModalPage,
     ChatroomPage,
     AddGroupModalPage,
     HomePage,
@@ -58,6 +64,9 @@ import { GroupModalPage } from '../pages/group-modal/group-modal'
     MyApp,
     AboutPage,
     ContactPage,
+    AddNoteModalPage,
+    EditNoteModalPage,
+    ShowNoteModalPage,
     ChatroomPage,
     NotesPage,
     GroupModalPage,

@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
+import { AddNoteModalPage } from '../add-note-modal/add-note-modal'
+import { EditNoteModalPage } from '../edit-note-modal/edit-note-modal'
+import { ShowNoteModalPage } from '../show-note-modal/show-note-modal'
 
 /**
  * Generated class for the NotesPage page.
@@ -23,6 +26,7 @@ export class NotesPage implements OnInit{
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public http: HttpClient, public modalCtrl: ModalController) {
     this.token = this.navParams.get('token');
+    this.getNotes();
   }
 
   ionViewDidLoad() {
@@ -40,7 +44,7 @@ export class NotesPage implements OnInit{
             data => {
               this.notes = [];
               for(var i in (data as any).notes){
-                this.notes.push((data as any).notes[i].name);
+                this.notes.push((data as any).notes[i]);
               }
               console.log(this.notes);
             }, err => {
@@ -51,14 +55,20 @@ export class NotesPage implements OnInit{
 
   addNoteModal(){
 
-   let profileModal = this.modalCtrl.create(AddGroupModalPage, {'token': this.token});
-   profileModal.present();
-   this.getGroups();
+   let noteModal = this.modalCtrl.create(AddNoteModalPage, {'token': this.token});
+   noteModal.present();
+   this.getNotes();
 
   }
 
-  editNote(note:string){
+  editNoteModal(note: any){
+    let editNoteModal = this.modalCtrl.create(EditNoteModalPage, {'token': this.token, 'note': note});
+    editNoteModal.present();
+  }
 
+  showNoteModal(note: any){
+    let showNoteModal = this.modalCtrl.create(ShowNoteModalPage, {'token': this.token, 'note': note});
+    showNoteModal.present();
   }
 
 }

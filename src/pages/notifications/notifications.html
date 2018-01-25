@@ -18,19 +18,19 @@
       <ion-item *ngFor="let notificationFriend of notificationsFriend">
         <h2>Freundschaftsanfrage</h2>
         <h2>{{notificationFriend.user.name}}</h2>
-        <button ion-button-color="primary" (click)="acceptFriend(notificationFriend)" round>Accept</button>
-        <button ion-button-color="secondary" (click)="declineFriend(notificationFriend)" round>Decline</button>
+        <button ion-button color="secondary" (click)="acceptFriend(notificationFriend)" round outline>Accept</button>
+        <button ion-button color="danger" (click)="declineFriend(notificationFriend)" round outline>Decline</button>
       </ion-item>
       <ion-item *ngFor="let notificationGroup of notificationsGroup">
         <h2>Gruppenanfragen</h2>
         <h2>{{notificationGroup}}</h2>
-        <button ion-button-color="primary" (click)="acceptGroup(notificationGroup)" round>Accept</button>
-        <button ion-button-color="secondary" (click)="declineGroup(notificationGroup)" round>Decline</button>
+        <button ion-button color="secondary" (click)="acceptGroup(notificationGroup)" round outline>Accept</button>
+        <button ion-button color="danger" (click)="declineGroup(notificationGroup)" round outline>Decline</button>
       </ion-item>
       <ion-item *ngFor="let notificationNote of notificationsNote">
         <h2>{{notificationNote}}</h2>
-        <button ion-button-color="primary" (click)="acceptNote(notificationNote)" round>Accept</button>
-        <button ion-button-color="secondary" (click)="declineNote(notificationNote)" round>Decline</button>
+        <button ion-button color="secondary" (click)="acceptNote(notificationNote)" round outline>Accept</button>
+        <button ion-button color="danger" (click)="declineNote(notificationNote)" round outline>Decline</button>
       </ion-item>
   </ion-list>
 </ion-content>

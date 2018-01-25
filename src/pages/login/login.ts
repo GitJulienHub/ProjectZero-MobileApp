@@ -1,5 +1,5 @@
 
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams,ToastController } from 'ionic-angular';
 import { AuthService } from '../auth.service';
 
@@ -17,7 +17,7 @@ import { WillkommenPage } from '../willkommen/willkommen';
   templateUrl: 'login.html',
 })
 export class LoginPage implements OnInit{
-  error: string = null;
+  error: string;
 
   @ViewChild('username') user;
   @ViewChild('password') password;
@@ -42,8 +42,7 @@ export class LoginPage implements OnInit{
     const password =this.password.value;
     this.authService.signinUser(email, '12345678');//("shut@yourmouth.pls","12345678");//("testb@b.de", "12345678");//(email, password);
 
-
-    if(this.authService.isAuthenticated() == true){
+    if(this.authService.isAuthenticated()){
       this.toast("Signing in");
         this.navCtrl.push(WillkommenPage,{'auth' : this.authService});
         console.log(this.authService.isAuthenticated());
@@ -52,7 +51,6 @@ export class LoginPage implements OnInit{
       this.toast("Log in Failed");
       console.log("Log in Failed");
     }
-
 
   }
 

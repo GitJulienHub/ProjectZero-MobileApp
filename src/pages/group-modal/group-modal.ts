@@ -43,7 +43,7 @@ export class GroupModalPage {
   }
 
   closeModal(){
-    this.closeModal();
+    this.navCtrl.pop();
   }
 
   inviteFriend(id: string){
