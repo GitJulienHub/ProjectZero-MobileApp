@@ -37,12 +37,10 @@ export class NotificationsPage {
       this.http.get("https://pr0jectzer0.ml/api/friend/requests?token="+this.token)
           .subscribe(
               data => {
-                console.log(data);
                 this.notificationsFriend = [];
                 for(var i in (data as any).requests){
                   this.notificationsFriend.push((data as any).requests[i]);
                 }
-                  console.log(this.notificationsFriend);
                   resolve(data);
                   return;
               }, err => {
@@ -59,7 +57,6 @@ export class NotificationsPage {
       this.http.get("https://pr0jectzer0.ml/api/group/requests?token="+this.token)
           .subscribe(
               data => {
-                console.log(data);
                 this.notificationsGroup = [];
                 for(var i in (data as any).requests){
                   this.notificationsGroup.push((data as any).requests[i]);
@@ -80,7 +77,6 @@ export class NotificationsPage {
       this.http.get("https://pr0jectzer0.ml/api/note/requests?token="+this.token)
           .subscribe(
               data => {
-                console.log(data);
                 this.notificationsNote = [];
                 for(var i in (data as any).requests){
                   this.notificationsNote.push((data as any).requests[i]);
@@ -94,11 +90,6 @@ export class NotificationsPage {
      });
 
 }
-
-
-
-
-
   acceptFriend(notificationFriend: any){
     this.http.get('https://pr0jectzer0.ml/api/friend/'+notificationFriend.id+'/accept?token=' + this.token)
         .subscribe(
@@ -160,7 +151,7 @@ export class NotificationsPage {
     this.http.get('https://pr0jectzer0.ml/api/note/'+notificationNote.id+'/accept/?token=' + this.token)
         .subscribe(
             data => {
-              this.toast("Gruppenanfrage abgelehnt");
+              this.toast("Notizanfrage angenommen");
               this.getFriendNotifications();
               this.getGroupNotifications();
               this.getNotesNotifications();
@@ -174,7 +165,7 @@ export class NotificationsPage {
     this.http.get('https://pr0jectzer0.ml/api/note/'+notificationNote.id+'/decline/?token=' + this.token)
         .subscribe(
             data => {
-              this.toast("Gruppenanfrage abgelehnt");
+              this.toast("Notizanfrage abgelehnt");
             }, err => {
 
             }
@@ -185,7 +176,7 @@ export class NotificationsPage {
   let toast = this.toastCtrl.create({
     message: msg,
     duration: 3000,
-    position: 'top'
+    position: 'bot'
   });
   toast.present();
   }

@@ -6,11 +6,10 @@
 -->
 <ion-header>
   <ion-toolbar no-border-top>
-  <ion-title>willkommen</ion-title>
+  <ion-title>Willkommen</ion-title>
   <button  ion-button menuToggle left>
     <ion-icon name="menu"></ion-icon>
   </button>
-
 </ion-toolbar>
 </ion-header>
 
@@ -22,6 +21,9 @@
 <ion-menu [content]="content">
 <ion-content padding>
   <ion-list>
+    <ion-list-header>
+      {{username}}
+    </ion-list-header>
     <button ion-item (click)="notifications()">
       Benachrichtigungen
     </button>

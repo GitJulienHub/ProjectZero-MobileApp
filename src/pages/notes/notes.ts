@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
-import { AddNoteModalPage } from '../add-note-modal/add-note-modal'
-import { ShowNoteModalPage } from '../show-note-modal/show-note-modal'
-
+import { AddNoteModalPage } from '../add-note-modal/add-note-modal';
+import { ShowNoteModalPage } from '../show-note-modal/show-note-modal';
 /**
  * Generated class for the NotesPage page.
  *
@@ -33,11 +32,10 @@ export class NotesPage implements OnInit{
   }
 
   ngOnInit() {
-
+    this.getNotes();
   }
 
   getNotes(){
-    console.log(this.token);
     this.http.get("https://pr0jectzer0.ml/api/notes?token="+this.token)
         .subscribe(
             data => {
@@ -45,7 +43,6 @@ export class NotesPage implements OnInit{
               for(var i in (data as any).notes){
                 this.notes.push((data as any).notes[i]);
               }
-              console.log(this.notes);
             }, err => {
 
             }
@@ -53,15 +50,14 @@ export class NotesPage implements OnInit{
   }
 
   addNoteModal(){
-
-   let noteModal = this.modalCtrl.create(AddNoteModalPage, {'token': this.token});
-   noteModal.present();
-   this.getNotes();
-
+    let noteModal = this.modalCtrl.create(AddNoteModalPage, {'token': this.token});
+    noteModal.onDidDismiss(() => {this.getNotes();});
+    noteModal.present();
   }
 
   showNoteModal(note: any){
     let showNoteModal = this.modalCtrl.create(ShowNoteModalPage, {'token': this.token, 'note': note});
+    showNoteModal.onDidDismiss(() => {this.getNotes();});
     showNoteModal.present();
   }
 

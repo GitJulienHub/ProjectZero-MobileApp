@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { HomePage } from '../home/home';
 import { FriendlistPage } from "../friendlist/friendlist";
 import { ChatroomPage } from '../chatroom/chatroom';
 import { NotesPage } from '../notes/notes';
 import { NotificationsPage } from '../notifications/notifications';
+import { HttpClient } from '@angular/common/http';
 /**
  * Generated class for the WillkommenPage page
  hi
@@ -20,12 +20,28 @@ import { NotificationsPage } from '../notifications/notifications';
   templateUrl: 'willkommen.html',
 })
 export class WillkommenPage {
+  token: string;
+  username: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public http: HttpClient) {
+    this.token = navParams.get('token');
+    this.getUsername();
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad WillkommenPage');
+  }
+
+  getUsername(){
+    this.http.get("https://pr0jectzer0.ml/api/user?token="+this.token)
+        .subscribe(
+            data => {
+                this.username = (data as any).user.name;
+            },
+            err => {
+
+            }
+        );
   }
 
   friendlist(){

@@ -7,12 +7,30 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>EditNoteModal</ion-title>
+    <ion-title>Notiz "{{title}}" bearbeiten</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+  <ion-list>
 
+    <ion-item>
+      <ion-label floating>Name der Notiz</ion-label>
+      <ion-input #noteName type="text" value="{{title}}"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <textarea #note id="textArea" type="text" maxLength="500" (keyup)="resize()" placeholder="Notiz">{{text}}</textarea>
+    </ion-item>
+
+  </ion-list>
 </ion-content>
+
+<ion-footer>
+  <div text-center>
+    <button ion-button color="dark" (click)="closeModal()" round outline>Zurück</button>
+    <button ion-button color="secondary" (click)="updateNote()" round>Aktualisieren</button>
+  </div>
+</ion-footer>

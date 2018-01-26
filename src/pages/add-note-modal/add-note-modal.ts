@@ -38,16 +38,16 @@ export class AddNoteModalPage {
               this.toast('Notiz konnte nicht erstellt werden!');
             }
         );
-    this.closeModal();
+        this.closeModal();
   }
 
   toast(msg : any ) {
-  let toast = this.toastCtrl.create({
-    message: msg,
-    duration: 3000,
-    position: 'top'
-  });
-  toast.present();
+    let toast = this.toastCtrl.create({
+      message: msg,
+      duration: 3000,
+      position: 'bot'
+    });
+    toast.present();
   }
 
   closeModal(){

@@ -40,12 +40,12 @@ export class LoginPage implements OnInit{
     console.log('Signing in as ', this.user.value);
     const email = this.user.value;
     const password =this.password.value;
-    this.authService.signinUser(email, '12345678');//("shut@yourmouth.pls","12345678");//("testb@b.de", "12345678");//(email, password);
+    this.authService.signinUser(email, password);//test login: ("testb@b.de", "12345678")
 
     if(this.authService.isAuthenticated()){
       this.toast("Signing in");
-        this.navCtrl.push(WillkommenPage,{'auth' : this.authService});
-        console.log(this.authService.isAuthenticated());
+        this.navCtrl.push(WillkommenPage,{'auth' : this.authService, 'token': this.authService.getToken()});
+        console.log('authed: ', this.authService.isAuthenticated());
         console.log(this.authService.getToken());
     }else{
       this.toast("Log in Failed");

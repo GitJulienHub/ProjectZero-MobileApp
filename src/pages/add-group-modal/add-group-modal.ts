@@ -1,6 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular'
-import { ImagePicker } from '@ionic-native/image-picker';
 import { HttpClient } from '@angular/common/http';
 
 
@@ -18,72 +17,36 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: 'add-group-modal.html',
 })
 export class AddGroupModalPage {
-
-  //options: ImagePickerOptions;
   token: any;
 
   @ViewChild('groupname') groupname;
   @ViewChild('groupdesc') groupdesc;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private imagePicker: ImagePicker, private toastCtrl: ToastController, public http: HttpClient) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private toastCtrl: ToastController, public http: HttpClient) {
     this.token = this.navParams.get('token');
     console.log('UserId', navParams.get('userId'));
   }
 
   sendGroupData(){
-    console.log("lol "+this.groupname.value);
-    console.log("lol2 "+this.groupdesc.value);
     this.http.post('https://pr0jectzer0.ml/api/group?token=' + this.token, {'name': this.groupname.value, 'beschreibung': this.groupdesc.value})
         .subscribe(
             data => {
-              this.groupAdded();
-              console.log(data);
+              this.toast('Gruppe wurde hinzugefügt');
             }, err => {
-              this.groupNotAdded();
+              this.toast('Gruppe konnte nicht hinzugefügt werden.');
             }
         );
     this.closeModal();
   }
 
-  groupAdded() {
-  let toast = this.toastCtrl.create({
-    message: 'Gruppe wurde hinzugefügt.',
-    duration: 3000,
-    position: 'top'
-  });
-  toast.onDidDismiss(() => {
-    console.log('Dismissed toast');
-  });
-
-  toast.present();
-}
-
-groupNotAdded() {
-let toast = this.toastCtrl.create({
-  message: 'Gruppe konnte nicht hinzugefügt werden. :wink:',
-  duration: 3000,
-  position: 'top'
-});
-toast.onDidDismiss(() => {
-  console.log('Dismissed toast');
-});
-
-toast.present();
-}
-
-//   private openGallery (): void {
-//   let options = {
-//     maximumImagesCount: 1,
-//     width: 500,
-//     height: 500,
-//     quality: 75
-//   }
-//
-//   ImagePicker.getPictures(options).then(
-//     file_uris => this.navCtrl.push(AddGroupModalPage, {images: file_uris}),
-//     err => console.log('uh oh')
-//   );
-// }
+  toast(msg : any ) {
+    let toast = this.toastCtrl.create({
+      message: msg,
+      duration: 3000,
+      position: 'bot'
+    });
+    toast.present();
+  }
 
   closeModal(){
     this.navCtrl.pop();

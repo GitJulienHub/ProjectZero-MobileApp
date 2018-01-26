@@ -47,7 +47,6 @@ export class GroupModalPage {
   }
 
   inviteFriend(id: string){
-    console.log("THIS IS MU ID", id);
     //id geht nur von 1-47 (Hardcoded by backend HEHEXD)
     this.http.post('https://pr0jectzer0.ml/api/group/'+this.group.id+'/add_user?token=' + this.token, {'id': id})
         .subscribe(
@@ -62,7 +61,7 @@ export class GroupModalPage {
   let toast = this.toastCtrl.create({
     message: msg,
     duration: 3000,
-    position: 'top'
+    position: 'bot'
   });
   toast.present();
   }

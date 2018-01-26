@@ -1,0 +1,33 @@
+installer compilieren
+
+anmelden: benutzername ODER email | keine route für benutzername
+
+Gruppen:
+rollen realisieren?
+Ersteller	Beim Erstellen der Gruppe	Alle
+Admin	Vergabe durch Admin oder Ersteller	Rechte des Foren-Admins + Einladen, Ausladen von Mitgliedern, Ernennung von anderen Admins
+Foren-Admin	Vergabe durch Admin oder Ersteller	Rechte eines Mitglieds + Bearbeitung des Forums
+Mitglied	Beim Beitritt in die Gruppe	Schreiben von Beiträgen, Erstellen von Terminen, Erstellen von Notizen
+
+öffentliche gruppen beitreten
+
+grp chats
+
+privatchats:
+  Mitglieder nicht einsehbar? keine route
+  keine benachrichtigung bei neuer nachricht
+  keine farbzuweisung
+
+öffentliche chats:
+    keinte routen vorhanden
+
+benutzer stummschalten | keine route vorhanden
+freundesliste:
+      status ändern/einsehen keine route vorhanden
+      keine gruppierung von freunden | keine route vorhanden
+
+terminplaner:
+    nicht vorhanden
+
+notizen:
+  (mit gruppen/benutzern teilen(soll))

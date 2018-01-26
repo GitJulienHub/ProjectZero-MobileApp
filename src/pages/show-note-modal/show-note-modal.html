@@ -19,9 +19,10 @@
     <ion-fab-list>
       <button ion-fab (click)="editNoteModal()"><ion-icon name="create"></ion-icon></button>
       <button ion-fab (click)="noteMemberModal()"><ion-icon name="contacts"></ion-icon></button>
+      <button ion-fab (click)="deleteNote()"><ion-icon name="trash"></ion-icon></button>
     </ion-fab-list>
   </ion-fab>
-  <textarea readonly #note id="textArea" type="text" maxLength="500" (keyup)="resize()" placeholder="Notiz">{{noteval}}</textarea>
+  <textarea readonly #note id="textArea" type="text" maxLength="500" placeholder="Notiz">{{noteval}}</textarea>
 </ion-content>
 
 <ion-footer>

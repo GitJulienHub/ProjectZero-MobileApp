@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, ModalController, NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
-import { Subject } from "rxjs/Subject";
 import { ChatroomPage } from '../chatroom/chatroom';
 import { AddGroupModalPage } from '../add-group-modal/add-group-modal'
 import { GroupModalPage } from '../group-modal/group-modal'
@@ -31,14 +30,11 @@ export class FriendlistPage implements OnInit{
     this.friends = ['hoppöla'];
     this.groups = ['gitjulienhub'];
     this.token = this.navParams.get('token');
-    console.log(this.token);
-
     localStorage.setItem('token', this.token);
 
     this.friendlist="Friends";
     this.getFriends();
     this.getGroups();
-    console.log(this.friends);
   }
 
   ngOnInit() {
@@ -46,7 +42,6 @@ export class FriendlistPage implements OnInit{
   }
 
   getFriends(){
-    console.log(this.token);
     this.http.get("https://pr0jectzer0.ml/api/friends?token="+this.token)
         .subscribe(
             data => {
@@ -54,7 +49,6 @@ export class FriendlistPage implements OnInit{
               for(var i in (data as any).friends){
                 this.friends.push((data as any).friends[i].friend_user);
               }
-              console.log(this.friends);
             }, err => {
 
             }
@@ -62,19 +56,14 @@ export class FriendlistPage implements OnInit{
   }
 
   getGroups(){
-    console.log(this.token);
     this.http.get("https://pr0jectzer0.ml/api/user/groups?token="+this.token)
         .subscribe(
             data => {
               this.groups = [];
-              console.log(data);
               for(var i in (data as any).groups){
                 this.groups.push((data as any).groups[i]);
-                console.log((data as any).groups[i]);
               }
-              console.log(this.groups);
             }, err => {
-
             }
         );
   }
@@ -84,8 +73,7 @@ export class FriendlistPage implements OnInit{
     console.log('ionViewDidLoad FriendlistPage');
   }
 
-  addFriend(id: string){
-    console.log("Hallo? ", id);
+  addFriend(id: string){;
     this.http.post('https://pr0jectzer0.ml/api/friend/add?token=' + this.token, {'id': id})
         .subscribe(
             data => {
@@ -95,36 +83,29 @@ export class FriendlistPage implements OnInit{
 
             }
         );
-    //this.friends.push(this.name);
 
   }
   openChat(username: string){
     this.getId(username)
       .then(data => {
-
         this.navCtrl.push(ChatroomPage,{'token' : this.token,'user': this.id});
-
       });
   }
   deleteFriend(id: string){
-    console.log(this.id);
     this.getId(id)
     .then(data => {
       this.http.delete('https://pr0jectzer0.ml/api/friend/remove/'+this.id+'?token=' + this.token)
           .subscribe(
               data => {
-                console.log("WE GOT SOME FKN DATA, FINALLY");
                 this.getFriends();
                 this.toast('Freund wurde entfernt.');
                 return;
               }, err => {
-                console.log("THERE WAS AN ERRORR HELPPPPPPPPPPPPPPPPP");
                 return;
               }
       );
     });
   }
-
   deleteGroup(id: string){
     console.log(this.id);
     this.getGroupId(id)
@@ -132,12 +113,10 @@ export class FriendlistPage implements OnInit{
       this.http.delete('https://pr0jectzer0.ml/api/group/'+this.id+'?token=' + this.token)
           .subscribe(
               data => {
-                console.log("WE GOT SOME FKN DATA, FINALLY");
                 this.getGroups();
                 this.toast('Gruppe wurde entfernt.');
                 return;
               }, err => {
-                console.log("THERE WAS AN ERRORR HELPPPPPPPPPPPPPPPPP");
                 return;
               }
       );
@@ -146,13 +125,11 @@ export class FriendlistPage implements OnInit{
 
   showGroup(group: any){
     this.getFriends();
-    console.log('ICH HAB E DOCH FRUEUNDE', this.friends);
     let groupModal = this.modalCtrl.create(GroupModalPage, {'token': this.token, 'group': group, 'friends': this.friends});
     groupModal.present();
   }
 
   getId(username: string){
-    console.log("getid: "+username);
     return new Promise(resolve => {
       this.http.get("https://pr0jectzer0.ml/api/users?token="+this.token)
           .subscribe(
@@ -160,16 +137,12 @@ export class FriendlistPage implements OnInit{
                 for(var i in (data as any).users){
                     if(username==(data as any).users[i].name){
                       this.id=((data as any).users[i].id);
-                      console.log("sollte geklappt haben, hm");
-                      //this.hatgeklappt.next(true);
                       resolve(this.id);
                       return;
                     }
                   }
                   this.toast("Diesen Benutzer gibt es nicht.");
-
               }, err => {
-                  console.log("getID error, kek");
                   return;
               }
           );
@@ -177,7 +150,6 @@ export class FriendlistPage implements OnInit{
   }
 
   getGroupId(groupname: string){
-    console.log("Gruppenname: "+groupname);
     return new Promise(resolve => {
       this.http.get("https://pr0jectzer0.ml/api/groups?token="+this.token)
           .subscribe(
@@ -185,8 +157,6 @@ export class FriendlistPage implements OnInit{
                 for(var i in (data as any).groups){
                     if(groupname==(data as any).groups[i].name){
                       this.id=((data as any).groups[i].id);
-                      console.log("sollte geklappt haben, hm");
-                      //this.hatgeklappt.next(true);
                       resolve(this.id);
                       return;
                     }
@@ -194,7 +164,7 @@ export class FriendlistPage implements OnInit{
                   this.toast("Diese Gruppe gibt es nicht.");
 
               }, err => {
-                  console.log("getID error, kek");
+                  console.log("getID error");
                   return;
               }
           );
@@ -240,7 +210,6 @@ export class FriendlistPage implements OnInit{
    let profileModal = this.modalCtrl.create(AddGroupModalPage, {'token': this.token});
    profileModal.present();
    this.getGroups();
-
   }
 
 
@@ -248,7 +217,7 @@ toast(msg : any ) {
 let toast = this.toastCtrl.create({
   message: msg,
   duration: 3000,
-  position: 'top'
+  position: 'bot'
 });
 toast.present();
 }

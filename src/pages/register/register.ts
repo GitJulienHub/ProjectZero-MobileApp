@@ -1,8 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {IonicPage, NavController, NavParams} from 'ionic-angular';
+import {IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
 import {AuthService} from '../auth.service';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {isEmailValid} from "../is-email-valid.directive";
 
 /**
  * Generated class for the RegisterPage page.
@@ -25,7 +23,7 @@ export class RegisterPage implements OnInit {
     @ViewChild('password2') password2;
 
 
-    constructor(public navCtrl: NavController, public navParams: NavParams, private authService: AuthService) {
+    constructor(public navCtrl: NavController, public navParams: NavParams, private authService: AuthService, private toastCtrl: ToastController) {
     }
 
     ngOnInit() {
@@ -43,16 +41,25 @@ export class RegisterPage implements OnInit {
       const email = this.email.value;
       const password =this.password.value;
       const password2 =this.password2.value;
-      console.log(username,email,password,password2);
       if(password != password2){
         console.log('Password not matching ',password.length);
+        this.toast('Passwort stimmen nicht überein');
         return;
       }else if(password.length < 8){
         console.log('Passwort zu kurz')
+        this.toast('Passwort zu kurz');
       }
 
         this.authService.signupUser(username, email, password);
-        
+        this.toast('Erfolgreich registriert');
+    }
+    toast(msg : any ) {
+      let toast = this.toastCtrl.create({
+        message: msg,
+        duration: 3000,
+        position: 'bot'
+      });
+      toast.present();
     }
 
 
