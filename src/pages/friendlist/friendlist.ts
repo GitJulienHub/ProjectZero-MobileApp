@@ -20,6 +20,7 @@ export class FriendlistPage implements OnInit{
   friendlist: string;
   name: string;
   friends: any;
+  userid: any;
   groups: any;
   error: string = null;
   token: any;
@@ -27,18 +28,28 @@ export class FriendlistPage implements OnInit{
   id: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public http: HttpClient, private toastCtrl: ToastController, public modalCtrl: ModalController) {
-    this.friends = ['hoppöla'];
-    this.groups = ['gitjulienhub'];
     this.token = this.navParams.get('token');
     localStorage.setItem('token', this.token);
 
     this.friendlist="Friends";
     this.getFriends();
     this.getGroups();
+    this.getUserId();
   }
 
   ngOnInit() {
 
+  }
+
+  getUserId(){
+    this.http.get("https://pr0jectzer0.ml/api/user?token="+this.token)
+        .subscribe(
+            data => {
+              this.userid=(data as any).user.id;
+            }, err => {
+              console.log("ID konnte nicht ermittelt werden. (getUserId())");
+            }
+        );
   }
 
   getFriends(){
@@ -47,6 +58,7 @@ export class FriendlistPage implements OnInit{
             data => {
               this.friends = [];
               for(var i in (data as any).friends){
+
                 this.friends.push((data as any).friends[i].friend_user);
               }
             }, err => {
@@ -54,6 +66,7 @@ export class FriendlistPage implements OnInit{
             }
         );
   }
+
 
   getGroups(){
     this.http.get("https://pr0jectzer0.ml/api/user/groups?token="+this.token)
@@ -73,7 +86,17 @@ export class FriendlistPage implements OnInit{
     console.log('ionViewDidLoad FriendlistPage');
   }
 
-  addFriend(id: string){;
+  addFriend(id: string){
+    if(id == this.userid){
+      this.toast("Nicht möglich");
+      return;
+    }
+    for(var i in this.friends){
+      if(id == this.friends[i].id){
+        this.toast("Nicht möglich");
+        return;
+      }
+    }
     this.http.post('https://pr0jectzer0.ml/api/friend/add?token=' + this.token, {'id': id})
         .subscribe(
             data => {
@@ -85,16 +108,13 @@ export class FriendlistPage implements OnInit{
         );
 
   }
-  openChat(username: string){
-    this.getId(username)
-      .then(data => {
-        this.navCtrl.push(ChatroomPage,{'token' : this.token,'user': this.id});
-      });
+
+  openChat(id: any){
+        this.navCtrl.push(ChatroomPage,{'token' : this.token,'user': id});
   }
-  deleteFriend(id: string){
-    this.getId(id)
-    .then(data => {
-      this.http.delete('https://pr0jectzer0.ml/api/friend/remove/'+this.id+'?token=' + this.token)
+
+  deleteFriend(id: any){
+      this.http.delete('https://pr0jectzer0.ml/api/friend/remove/'+id+'?token=' + this.token)
           .subscribe(
               data => {
                 this.getFriends();
@@ -104,29 +124,43 @@ export class FriendlistPage implements OnInit{
                 return;
               }
       );
-    });
-  }
-  deleteGroup(id: string){
-    console.log(this.id);
-    this.getGroupId(id)
-    .then(data => {
-      this.http.delete('https://pr0jectzer0.ml/api/group/'+this.id+'?token=' + this.token)
-          .subscribe(
-              data => {
-                this.getGroups();
-                this.toast('Gruppe wurde entfernt.');
-                return;
-              }, err => {
-                return;
-              }
-      );
-    });
   }
 
   showGroup(group: any){
     this.getFriends();
     let groupModal = this.modalCtrl.create(GroupModalPage, {'token': this.token, 'group': group, 'friends': this.friends});
+    groupModal.onDidDismiss(() => {this.getGroups();});
     groupModal.present();
+  }
+
+  leaveGroup(group: any){
+    let prompt = this.alertCtrl.create({
+          title: 'Aus Gruppe Austreten',
+          message: "Wollen sie die Gruppe "+group.name+" wirklich Verlassen?",
+          buttons: [
+            {
+              text: 'Nein',
+              handler: data => {
+                console.log('Cancel clicked');
+              }
+            },
+            {
+              text: 'Ja',
+              handler: data => {
+                this.http.post('https://pr0jectzer0.ml/api/group/'+group.id+'/remove_user?token=' + this.token, {'id': this.userid})
+                    .subscribe(
+                        data => {
+                          this.getGroups();
+                          this.toast('Erfolgreich ausgetreten!');
+                        }, err => {
+                          this.toast('Austreten nicht möglich!');
+                        }
+                );
+              }
+            }
+          ]
+        });
+        prompt.present();
   }
 
   getId(username: string){
@@ -134,6 +168,7 @@ export class FriendlistPage implements OnInit{
       this.http.get("https://pr0jectzer0.ml/api/users?token="+this.token)
           .subscribe(
               data => {
+                console.log("https://pr0jectzer0.ml/api/users?token=", this.token);
                 for(var i in (data as any).users){
                     if(username==(data as any).users[i].name){
                       this.id=((data as any).users[i].id);
@@ -175,7 +210,7 @@ export class FriendlistPage implements OnInit{
 
   addFriendPrompt(){
     let prompt = this.alertCtrl.create({
-          title: 'Freund hinzufügen',
+          title: 'Freundschaft Anfragen',
           message: "Geben sie den Namen ihres Freundes ein.",
           inputs: [
             {
@@ -185,13 +220,13 @@ export class FriendlistPage implements OnInit{
           ],
           buttons: [
             {
-              text: 'Cancel',
+              text: 'Abbrechen',
               handler: data => {
                 console.log('Cancel clicked');
               }
             },
             {
-              text: 'Hinzufügen',
+              text: 'Abschicken',
               handler: data => {
                 this.name = data.name;
                 this.getId(data.name)
@@ -207,9 +242,9 @@ export class FriendlistPage implements OnInit{
 
   addGroupModal(){
 
-   let profileModal = this.modalCtrl.create(AddGroupModalPage, {'token': this.token});
-   profileModal.present();
-   this.getGroups();
+   let addGroupModal = this.modalCtrl.create(AddGroupModalPage, {'token': this.token});
+   addGroupModal.onDidDismiss(() =>{this.getGroups();});
+   addGroupModal.present();
   }
 
 

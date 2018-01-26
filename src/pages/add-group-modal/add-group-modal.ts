@@ -31,12 +31,12 @@ export class AddGroupModalPage {
     this.http.post('https://pr0jectzer0.ml/api/group?token=' + this.token, {'name': this.groupname.value, 'beschreibung': this.groupdesc.value})
         .subscribe(
             data => {
+              this.closeModal();
               this.toast('Gruppe wurde hinzugefügt');
             }, err => {
               this.toast('Gruppe konnte nicht hinzugefügt werden.');
             }
         );
-    this.closeModal();
   }
 
   toast(msg : any ) {

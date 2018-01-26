@@ -23,7 +23,7 @@
       </ion-item>
       <ion-item *ngFor="let notificationGroup of notificationsGroup">
         <h2>Gruppenanfragen</h2>
-        <h2>{{notificationGroup}}</h2>
+        <h2>{{notificationGroup.name}}</h2>
         <button ion-button color="secondary" (click)="acceptGroup(notificationGroup)" round outline>Accept</button>
         <button ion-button color="danger" (click)="declineGroup(notificationGroup)" round outline>Decline</button>
       </ion-item>

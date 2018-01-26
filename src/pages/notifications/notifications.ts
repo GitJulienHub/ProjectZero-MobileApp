@@ -16,6 +16,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class NotificationsPage {
   token: string;
+  userid: any;
   notificationsGroup: any;
   notificationsFriend: any;
   notificationsNote: any;
@@ -25,11 +26,22 @@ export class NotificationsPage {
     this.getFriendNotifications();
     this.getGroupNotifications();
     this.getNotesNotifications();
-
+    this.getUserId();
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad NotificationsPage');
+  }
+
+  getUserId(){
+    this.http.get('https://pr0jectzer0.ml/api/user?token=' + this.token)
+        .subscribe(
+            data => {
+              this.userid = (data as any).user.id;
+            }, err => {
+
+            }
+        );
   }
 
   getFriendNotifications(){
@@ -54,12 +66,14 @@ export class NotificationsPage {
 
   getGroupNotifications(){
     return new Promise(resolve => {
-      this.http.get("https://pr0jectzer0.ml/api/group/requests?token="+this.token)
+      this.http.get("https://pr0jectzer0.ml/api/user/groups/requests?token="+this.token)
           .subscribe(
               data => {
                 this.notificationsGroup = [];
-                for(var i in (data as any).requests){
-                  this.notificationsGroup.push((data as any).requests[i]);
+                for(var i in (data as any).groups){
+                  if((data as any).groups[i].group != null){
+                    this.notificationsGroup.push((data as any).groups[i].group);
+                  }
                 }
                   return;
               }, err => {
@@ -91,7 +105,7 @@ export class NotificationsPage {
 
 }
   acceptFriend(notificationFriend: any){
-    this.http.get('https://pr0jectzer0.ml/api/friend/'+notificationFriend.id+'/accept?token=' + this.token)
+    this.http.get('https://pr0jectzer0.ml/api/friend/'+notificationFriend.id+'/accept/?token=' + this.token)
         .subscribe(
             data => {
                 this.toast("Freundschaftsanfrage angenommen");
@@ -120,7 +134,8 @@ export class NotificationsPage {
   }
 
   acceptGroup(notificationGroup: any){
-    this.http.get('https://pr0jectzer0.ml/api/group/'+notificationGroup.id+'/accept/?token=' + this.token)
+    // Hardcoded IDS (1-47)
+    this.http.get('https://pr0jectzer0.ml/api/user/group/'+notificationGroup.id+'/accept?token=' + this.token)
         .subscribe(
             data => {
               this.toast("Gruppenanfrage angenommen");
@@ -134,7 +149,7 @@ export class NotificationsPage {
   }
 
   declineGroup(notificationGroup: any){
-    this.http.get('https://pr0jectzer0.ml/api/group/'+notificationGroup.id+'/decline/?token=' + this.token)
+    this.http.get('https://pr0jectzer0.ml/api/user/group/'+notificationGroup.id+'/decline?token=' + this.token)
         .subscribe(
             data => {
               this.toast("Gruppenanfrage abgelehnt");

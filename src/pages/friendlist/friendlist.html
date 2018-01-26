@@ -30,11 +30,11 @@
     <ion-list *ngSwitchCase="'Friends'">
         <ion-item *ngFor="let friend of friends">
           <ion-thumbnail item-start>
-          <img src="./../../img/somepic.jpg"/>
+          <img src="../../assets/imgs/towlie.jpg"/>
           </ion-thumbnail>
           <h2>{{friend.name}}</h2>
-          <button ion-button color="secondary" (click)="openChat(friend)" round outline>chat</button>
-          <button ion-button color="danger" (click)="deleteFriend(friend)" round>-</button>
+          <button ion-button color="secondary" (click)="openChat(friend.id)" round outline>Chatten</button>
+          <button ion-button color="danger" (click)="deleteFriend(friend.id)" round>Entfernen</button>
         </ion-item>
     </ion-list>
 
@@ -42,11 +42,11 @@
     <ion-list *ngSwitchCase="'Groups'">
       <ion-item *ngFor="let group of groups">
         <ion-thumbnail item-start>
-        <img src="./../../img/somepic.jpg"/>
+        <img src="../../assets/imgs/grp.jpg"/>
         </ion-thumbnail>
         <h2>{{group.name}}</h2>
         <button ion-button color="secondary" (click)="showGroup(group)" round outline>Details</button>
-        <button ion-button color="danger" (click)="deleteGroup(group)" round>-</button>
+        <button ion-button color="danger" (click)="leaveGroup(group)" round outline>Austreten</button>
       </ion-item>
     </ion-list>
 

@@ -1,17 +1,26 @@
 installer compilieren
 
+
+freund ablehnen (400 Bad Request) {"message": "Ungültige Freundschaftsanfrage."} | backend fehler?
+
+gruppen chats | kein pusher?
+
+gruppen anfrage geht nicht(bereits in gruppe(gaste))
+
+
 anmelden: benutzername ODER email | keine route für benutzername
 
 Gruppen:
+Aus Gruppe austreten |  405 Method Not Allowed
+
 rollen realisieren?
 Ersteller	Beim Erstellen der Gruppe	Alle
 Admin	Vergabe durch Admin oder Ersteller	Rechte des Foren-Admins + Einladen, Ausladen von Mitgliedern, Ernennung von anderen Admins
 Foren-Admin	Vergabe durch Admin oder Ersteller	Rechte eines Mitglieds + Bearbeitung des Forums
 Mitglied	Beim Beitritt in die Gruppe	Schreiben von Beiträgen, Erstellen von Terminen, Erstellen von Notizen
 
-öffentliche gruppen beitreten
 
-grp chats
+
 
 privatchats:
   Mitglieder nicht einsehbar? keine route

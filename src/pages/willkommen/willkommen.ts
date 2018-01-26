@@ -5,6 +5,7 @@ import { ChatroomPage } from '../chatroom/chatroom';
 import { NotesPage } from '../notes/notes';
 import { NotificationsPage } from '../notifications/notifications';
 import { HttpClient } from '@angular/common/http';
+import { GroupsPage } from '../groups/groups'
 /**
  * Generated class for the WillkommenPage page
  hi
@@ -42,6 +43,11 @@ export class WillkommenPage {
 
             }
         );
+  }
+
+  groups(){
+    const authService = this.navParams.get('auth');
+  this.navCtrl.push(GroupsPage,{'token' : authService.getToken()});
   }
 
   friendlist(){

@@ -7,12 +7,18 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>groups</ion-title>
+    <ion-title>Alle Gruppen</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-
+  <ion-item *ngFor="let group of groups">
+    <ion-thumbnail item-start>
+    <img src="../../assets/imgs/grp.jpg"/>
+    </ion-thumbnail>
+    <h2>{{group.name}}</h2>
+    <button ion-button color="secondary" (click)="joinGroup(group.id)" round outline>Anfragen</button>
+  </ion-item>
 </ion-content>

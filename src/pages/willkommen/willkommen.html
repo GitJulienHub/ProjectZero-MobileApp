@@ -21,17 +21,20 @@
 <ion-menu [content]="content">
 <ion-content padding>
   <ion-list>
-    <ion-list-header>
-      {{username}}
-    </ion-list-header>
+    <ion-item>
+      <ion-list-header>
+        <img width="50" height="50" src="../../assets/imgs/towlie.jpg"/>
+        {{username}}
+      </ion-list-header>
+    </ion-item>
     <button ion-item (click)="notifications()">
       Benachrichtigungen
     </button>
    <button ion-item (click)="openPage(ratePage)">
      Spiele bewerten
    </button>
-   <button ion-item (click)="openPage(groupsPage)">
-     Gruppen
+   <button ion-item (click)="groups()">
+     Alle Gruppen
    </button>
    <button ion-item (click)="chatroom()">
      Chaträume

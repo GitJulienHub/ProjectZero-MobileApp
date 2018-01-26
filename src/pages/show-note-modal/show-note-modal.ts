@@ -38,6 +38,7 @@ export class ShowNoteModalPage {
     this.http.get('https://pr0jectzer0.ml/api/note/'+this.note.id+'?token='+this.token)
         .subscribe(
             data => {
+              this.note = (data as any).note;
               this.title = (data as any).note.titel;
               this.noteval = (data as any).note.text;
             }, err => {
@@ -63,13 +64,13 @@ export class ShowNoteModalPage {
           message: "Wollen sie diese Notiz wirklich löschen?",
           buttons: [
             {
-              text: 'No',
+              text: 'Nein',
               handler: data => {
                 console.log('Cancel clicked');
               }
             },
             {
-              text: 'Yes',
+              text: 'Ja',
               handler: data => {
                 this.http.delete('https://pr0jectzer0.ml/api/note/'+this.note.id+'?token=' + this.token)
                     .subscribe(

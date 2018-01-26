@@ -1,8 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="io.ionic.starter" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>MyApp</name>
-    <description>An awesome Ionic/Cordova app.</description>
-    <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
+    <name>Pr0jectzer0</name>
+    <description>Die Mobile App für Pr0jectzer0.</description>
+    <author email="maximilian.kleinke@fh-bielefeld.de" href="http://www.instagram.com/max_kleinke/">Maximilian Kleinke</author>
+    <author email="julien_max.garb@fh-bielefeld.de">Julien Garb</author>
     <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />

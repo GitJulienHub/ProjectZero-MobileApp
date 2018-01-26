@@ -22,8 +22,11 @@
       <ion-segment-button value="Member">
         Member
       </ion-segment-button>
-      <ion-segment-button value="Friends">
+      <ion-segment-button value="Invite">
         Einladen
+      </ion-segment-button>
+      <ion-segment-button value="Access">
+        Anfragen
       </ion-segment-button>
     </ion-segment>
   </div>
@@ -52,22 +55,33 @@
     <ion-list *ngSwitchCase="'Member'">
       <ion-item *ngFor="let user of users">
         <ion-thumbnail item-start>
-        <img src="./../../img/somepic.jpg"/>
+        <img src="../../assets/imgs/towlie.jpg"/>
         </ion-thumbnail>
         <h2>{{user.user.name}}</h2>
         <p>Rolle: {{user.rolle}}</p>
       </ion-item>
     </ion-list>
 
-    <ion-list *ngSwitchCase="'Friends'">
-      <ion-item *ngFor="let friend of friends">
+    <ion-list *ngSwitchCase="'Invite'">
+      <ion-item *ngFor="let nonMember of nonMembers">
         <ion-thumbnail item-start>
-        <img src="./../../img/somepic.jpg"/>
+        <img src="../../assets/imgs/towlie.jpg"/>
         </ion-thumbnail>
-        <h2>{{friend.name}}</h2>
-        <button ion-button color="secondary" (click)="inviteFriend(friend.id)" round outline>Einladen</button>
+        <h2>{{nonMember.name}}</h2>
+        <button ion-button color="secondary" (click)="inviteFriend(nonMember.id)" round outline>Einladen</button>
       </ion-item>
     </ion-list>
+
+      <ion-list *ngSwitchCase="'Access'">
+        <ion-item *ngFor="let request of requests">
+          <ion-thumbnail item-start>
+            <img src="../../assets/imgs/towlie.jpg"/>
+          </ion-thumbnail>
+          <h2>{{request.user.name}}</h2>
+          <button ion-button color="secondary" (click)="acceptRequest(request.user.id)" round outline>Annehmen</button>
+          <button ion-button color="danger" (click)="declineRequest(request.user.id)" round outline>Ablehnen</button>
+        </ion-item>
+      </ion-list>
 
   </div>
 </ion-content>
@@ -76,6 +90,7 @@
   <ion-toolbar>
     <div text-center>
       <button ion-button color="dark" (click)="closeModal()" round outline>Zurück</button>
+      <button ion-button color="danger" (click)="deleteGroup()" round outline>Auflösen</button>
     </div>
   </ion-toolbar>
 </ion-footer>

@@ -33,12 +33,12 @@ export class AddNoteModalPage {
     this.http.post('https://pr0jectzer0.ml/api/note?token=' + this.token, {'titel': this.noteName.value, 'text': this.note.nativeElement.value})
         .subscribe(
             data => {
+              this.closeModal();
               this.toast('Notiz erstellt!');
             }, err => {
               this.toast('Notiz konnte nicht erstellt werden!');
             }
         );
-        this.closeModal();
   }
 
   toast(msg : any ) {
