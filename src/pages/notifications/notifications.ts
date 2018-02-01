@@ -56,7 +56,7 @@ export class NotificationsPage {
                   resolve(data);
                   return;
               }, err => {
-                  console.log("Error, getFriendNotifications");
+                  console.log("Error, getFriendNotifications()");
                   return;
               }
           );
@@ -77,7 +77,7 @@ export class NotificationsPage {
                 }
                   return;
               }, err => {
-                  console.log("Error, getGroupNotifications");
+                  console.log("Error, getGroupNotifications()");
                   return;
               }
           );
@@ -97,7 +97,7 @@ export class NotificationsPage {
                 }
                   return;
               }, err => {
-                  console.log("Error, getNotesNotifications");
+                  console.log("Error, getNotesNotifications()");
                   return;
               }
           );

@@ -24,7 +24,6 @@ export class AddGroupModalPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private toastCtrl: ToastController, public http: HttpClient) {
     this.token = this.navParams.get('token');
-    console.log('UserId', navParams.get('userId'));
   }
 
   sendGroupData(){

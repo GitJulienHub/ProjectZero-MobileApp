@@ -54,11 +54,10 @@ export class GroupModalPage {
     this.nonMembers = this.friends;
     for(var i in (this.users as any)){
       for(var x in (this.nonMembers as any)){
-              console.log((this.nonMembers as any)[x].id+" "+ (this.users as any)[i].user.id);
-      if((this.nonMembers as any)[x].id == (this.users as any)[i].user.id){
-        (this.nonMembers as any).pop((this.nonMembers as any)[x]);
+        if((this.nonMembers as any)[x].id == (this.users as any)[i].user.id){
+          (this.nonMembers as any).pop((this.nonMembers as any)[x]);
+        }
       }
-    }
     }
 
   }
@@ -120,7 +119,6 @@ export class GroupModalPage {
             {
               text: 'No',
               handler: data => {
-                console.log('Cancel clicked');
               }
             },
             {
@@ -129,7 +127,6 @@ export class GroupModalPage {
                 this.http.delete('https://pr0jectzer0.ml/api/group/'+this.group.id+'?token=' + this.token)
                     .subscribe(
                         data => {
-                          console.log('https://pr0jectzer0.ml/api/group/'+this.group.id+'?token=' + this.token);
                           this.toast('Gruppe wurde aufgelöst.');
                           this.closeModal();
                         }, err => {

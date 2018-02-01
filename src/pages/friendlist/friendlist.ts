@@ -141,7 +141,6 @@ export class FriendlistPage implements OnInit{
             {
               text: 'Nein',
               handler: data => {
-                console.log('Cancel clicked');
               }
             },
             {
@@ -168,7 +167,6 @@ export class FriendlistPage implements OnInit{
       this.http.get("https://pr0jectzer0.ml/api/users?token="+this.token)
           .subscribe(
               data => {
-                console.log("https://pr0jectzer0.ml/api/users?token=", this.token);
                 for(var i in (data as any).users){
                     if(username==(data as any).users[i].name){
                       this.id=((data as any).users[i].id);
@@ -199,7 +197,7 @@ export class FriendlistPage implements OnInit{
                   this.toast("Diese Gruppe gibt es nicht.");
 
               }, err => {
-                  console.log("getID error");
+                  console.log("getID error getGroupId()");
                   return;
               }
           );
@@ -222,7 +220,6 @@ export class FriendlistPage implements OnInit{
             {
               text: 'Abbrechen',
               handler: data => {
-                console.log('Cancel clicked');
               }
             },
             {

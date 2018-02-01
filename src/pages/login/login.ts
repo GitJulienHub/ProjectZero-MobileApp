@@ -37,7 +37,6 @@ export class LoginPage implements OnInit{
   }
 
   signInUser() {
-    console.log('Signing in as ', this.user.value);
     const email = this.user.value;
     const password =this.password.value;
     this.authService.signinUser(email, password);//test login: ("testb@b.de", "12345678")
@@ -45,11 +44,8 @@ export class LoginPage implements OnInit{
     if(this.authService.isAuthenticated()){
       this.toast("Signing in");
         this.navCtrl.push(WillkommenPage,{'auth' : this.authService, 'token': this.authService.getToken()});
-        console.log('authed: ', this.authService.isAuthenticated());
-        console.log(this.authService.getToken());
     }else{
       this.toast("Log in Failed");
-      console.log("Log in Failed");
     }
 
   }

@@ -66,7 +66,6 @@ export class ShowNoteModalPage {
             {
               text: 'Nein',
               handler: data => {
-                console.log('Cancel clicked');
               }
             },
             {

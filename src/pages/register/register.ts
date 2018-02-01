@@ -42,16 +42,14 @@ export class RegisterPage implements OnInit {
       const password =this.password.value;
       const password2 =this.password2.value;
       if(password != password2){
-        console.log('Password not matching ',password.length);
         this.toast('Passwort stimmen nicht überein');
         return;
       }else if(password.length < 8){
-        console.log('Passwort zu kurz')
         this.toast('Passwort zu kurz');
-      }
-
+      } else {
         this.authService.signupUser(username, email, password);
         this.toast('Erfolgreich registriert');
+      }
     }
     toast(msg : any ) {
       let toast = this.toastCtrl.create({
